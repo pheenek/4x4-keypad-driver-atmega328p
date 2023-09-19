@@ -45,7 +45,21 @@
 extern "C" {
 #endif
 
+/**
+ * @brief	 Function to initialize and setup Timer 2
+ *         Prescaler 64, with the overflow interrupt enabled (overflows in approximately 1ms)
+ * 
+ * @param none
+ * @return none
+ */
 void timer_init(void);
+
+/**
+ * @brief	Returns the number of elapsed milliseconds
+ * 
+ * @param none
+ * @return unsigned long -> elapsed time in milliseconds
+ */
 unsigned long get_timing_millis(void);
 
 #ifdef __cplusplus

@@ -31,28 +31,59 @@
  * ***************************************************************************
  * 
  */
-#ifndef ACCESS_CTL_KEYPAD_H
-#define ACCESS_CTL_KEYPAD_H
+#ifndef KEYPAD_H
+#define KEYPAD_H
 
 #include "keypad_driver.h"
 
+/**
+ * Enumeration defining the available keypad states
+ */
 typedef enum {
-  IDLE_STATE,
-  DEFAULT_STATE,
-  PIN_STATE,
-  NAVIGATION_STATE
+  KEYPAD_STATE_IDLE,      /*< Keypad idle, doesn't respond to events */
+  KEYPAD_STATE_PIN_INPUT, /*< Keypad set to accept PIN input (4-digit code) */
+  KEYPAD_STATE_NAVIGATION,/*< Keypad set to navigate menus 2, 4, 6, 8*/
+  KEYPAD_STATE_MAX
 }KeypadStates_t;
 
-class AccessCtlKeypad
+class Keypad
 {
   private:
-    KeypadStates_t currentKeypadState = DEFAULT_STATE;
+    KeypadStates_t currentKeypadState = KEYPAD_STATE_IDLE; /*< Variable to keep track of the current keypad state */
   public:
-    AccessCtlKeypad(void);
-    ~AccessCtlKeypad(void) {}
 
+    /**
+   * @brief	Keypad constructor
+   *        Calls the keypad_setup function to set up the low-level driver
+   * 
+   * @param none
+   * @return none
+   */
+    Keypad(void);
+    ~Keypad(void) {}
+
+    /**
+     * @brief	 Function to attach a callback to a keypad event
+     * 
+     * @param callback 
+     * @return none
+     */
     void attachKeypadCallback(void (*callback)(char, KeyEdge_t));
+
+    /**
+     * @brief	 Getter function for the current keypad state
+     * 
+     * @param none
+     * @return KeypadStates_t 
+     */
     KeypadStates_t getCurrentKeypadState(void);
+
+    /**
+     * @brief	 Setter function for the current keypad state
+     * 
+     * @param keypadState 
+     * @return none
+     */
     void changeKeypadToState(KeypadStates_t keypadState);
 };
 

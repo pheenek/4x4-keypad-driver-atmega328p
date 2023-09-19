@@ -33,8 +33,15 @@
  */
 #include "timing_driver.h"
 
-volatile unsigned long timing_millis = 0;
+volatile unsigned long timing_millis = 0; /*< Variable to keep track of the number of elapsed milliseconds */
 
+/**
+ * @brief	 Function to initialize and setup Timer 2
+ *         Prescaler 64, with the overflow interrupt enabled (overflows in approximately 1ms)
+ * 
+ * @param none
+ * @return none
+ */
 void timer_init(void)
 {
   // enable timer2 (prescaler 64)
@@ -43,11 +50,21 @@ void timer_init(void)
   TIMSK2 |= (1 << TOIE2);
 }
 
+/**
+ * @brief	Returns the number of elapsed milliseconds
+ * 
+ * @param none
+ * @return unsigned long -> elapsed time in milliseconds
+ */
 unsigned long get_timing_millis(void)
 {
 	return timing_millis;
 }
 
+/**
+ * @brief	Timer overflow ISR
+ *        Executed when Timer 2 overflows (approximately every 1ms) 
+ */
 ISR(TIMER2_OVF_vect)
 {
   // increment on every overflow (1 ms elapsed)

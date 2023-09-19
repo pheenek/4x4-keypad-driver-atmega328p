@@ -33,22 +33,47 @@
  */
 #include "keypad.h"
 
-AccessCtlKeypad::AccessCtlKeypad(void)
+/**
+ * @brief	Keypad constructor
+ *        Calls the keypad_setup function to set up the low-level driver
+ * 
+ * @param none
+ * @return none
+ */
+Keypad::Keypad(void)
 {
   keypad_setup();
 }
 
-void AccessCtlKeypad::attachKeypadCallback(void (*callback)(char, KeyEdge_t))
+/**
+ * @brief	 Function to attach a callback to a keypad event
+ * 
+ * @param callback 
+ * @return none
+ */
+void Keypad::attachKeypadCallback(void (*callback)(char, KeyEdge_t))
 {
   attach_event_callback(callback);
 }
 
-KeypadStates_t AccessCtlKeypad::getCurrentKeypadState(void)
+/**
+ * @brief	 Getter function for the current keypad state
+ * 
+ * @param none
+ * @return KeypadStates_t 
+ */
+KeypadStates_t Keypad::getCurrentKeypadState(void)
 {
   return currentKeypadState;
 }
 
-void AccessCtlKeypad::changeKeypadToState(KeypadStates_t keypadState)
+/**
+ * @brief	 Setter function for the current keypad state
+ * 
+ * @param keypadState 
+ * @return none
+ */
+void Keypad::changeKeypadToState(KeypadStates_t keypadState)
 {
   currentKeypadState = keypadState;
 }
